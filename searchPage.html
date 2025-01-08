@@ -1,0 +1,424 @@
+
+    <div class="map-container">
+        <!-- 검색 결과창 수정 -->
+        <div class="search-results">
+                <div class="content">
+                    <span class="location-name">     
+                        ㅇㅇ주차장장
+                        <div class="distance">30km</div>
+                    </span>
+                    <div class="road-address">
+                        <p>도로명</p>
+                        <span> 연희로로</span>
+                    </div>
+                    <div class="road-address">
+                        <p>지번</p>
+                        <span>122</span>
+                    </div>
+                </div>  
+            </div>
+        </div>
+
+        <divclass="parking-detail-overlay">
+            <div class="parking-detail-content">
+                <div class="parking-status">
+                    <h3 class="status-title">실시간 주차 현황</h3>
+                    <div class="status-grid">
+                        <div class="status-item total">
+                            <span class="status-label">전체</span>
+                            <span class="status-value">500</span>
+                        </div>
+                        <div class="status-item used">
+                            <span class="status-label">사용 중</span>
+                            <span class="status-value">30</span>
+                        </div>
+                        <div class="status-item available">
+                            <span class="status-label">여유</span>
+                            <span class="status-value">470</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="parking-info">
+                <div class="location-name">                    
+                    <div class="parking-name"><p>주소</p> <span>서울시</span></div>
+                </div>
+                <div class="location-name">                    
+                    <div class="parking-name">
+                        <p>운영</p>
+                        <span>24시간 운영</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<style scoped>
+.map-container {
+  width: 100%;
+  height: calc(100vh - 120px);
+  position: fixed;
+  top: 120px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.index {
+  min-width: 24px;
+  height: 24px;
+  background-color: #4a90e2;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  font-size: 0.9em;
+}
+
+.search-results {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 7px;
+    overflow-y: auto;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    z-index: 1000;
+    scrollbar-width: none;  
+    -ms-overflow-style: none;
+    padding-top: 20px;
+}
+
+.search-results::-webkit-scrollbar {
+    display: none;  
+}
+
+.content {
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+.location-name {
+    display: flex;
+    align-items: center;
+    font-weight: bolder;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+
+.result-item {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    margin: 15px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.marker-image {
+    width: 25px;
+    height: 20px;
+    margin-right: 10px;
+    margin-bottom: 2px;
+}
+
+.road-address {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #797979;
+    margin-bottom: 5px;
+    margin-left: 0;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.road-address p {
+    min-width: 54px;
+    margin: 0;
+    margin-right: 10px;
+    margin-top: 2px;
+    padding: 2px 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    font-size: 0.8em;
+    color: #666;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    width: 45px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.road-address span {
+    flex: 1;
+    white-space: normal;
+    word-break: break-all;
+    margin-left: 10px;
+}
+
+.distance {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 4px;
+    margin-left: auto;
+}
+
+.parking-detail-overlay {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 7px;
+    overflow-y: auto;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    z-index: 1000;
+    scrollbar-width: none;  
+    -ms-overflow-style: none;
+    padding-top: 20px;
+}
+
+
+.label {
+    font-weight: bold;
+    min-width: 70px;
+    color: #666;
+}
+
+.status {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.status.여유 {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status.보통 {
+    background-color: #fff3e0;
+    color: #ef6c00;
+}
+
+.status.혼잡 {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.status-grid {
+    display: flex;
+    gap: 15px;
+    padding: 0 10px;
+    border-radius: 12px;
+}
+
+.status-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.status-label {
+    font-size: 1em;
+    color: #666;
+}
+
+.status-value {
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.total {
+    background-color: #E3F2FD;
+}
+
+.total .status-value {
+    color: #1976D2;
+}
+
+.used {
+    background-color: #FFF3E0;
+}
+
+.used .status-value {
+    color: #F57C00;
+}
+
+.available {
+    background-color: #E8F5E9;
+}
+
+.available .status-value {
+    color: #2E7D32;
+}
+
+.status-title {
+    top: 20px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+    font-size: 1.2em;
+    color: #2b2b2b;
+    font-weight: 600;
+}
+
+.parking-info {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 14px;
+    margin-top: 10px;
+}
+
+.parking-info .location-name {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #333;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.marker-image {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    object-fit: contain;
+}
+.time-image {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    object-fit: contain;
+    margin-left: 4px;
+}
+
+.parking-name {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.parking-name p {
+    min-width: 54px;
+    margin: 0;
+    margin-right: 10px;
+    padding: 2px 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    font-size: 0.8em;
+    color: #666;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.parking-name span {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.parking-ticket-info {
+    padding: 20px 10px;
+    margin-top: 10px;
+}
+
+.ticket-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 80px;
+    max-height: 300px;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.ticket-list::-webkit-scrollbar {
+    display: none;
+}
+
+.ticket-title {
+    font-size: 1.2em;
+    color: #2b2b2b;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.ticket-item {
+    position: relative;
+    cursor: pointer;
+    display: block;
+}
+
+.ticket-radio {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.ticket-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-radius: 8px;
+    background-color: #F3F4F6;
+    transition: all 0.2s ease;
+    margin-bottom: 5px;
+}
+
+.ticket-radio:checked + .ticket-content {
+    background-color: #C0C0C0;
+}
+
+.ticket-duration {
+    font-weight: bold;
+    color: #2c2c2c;
+}
+
+.ticket-price {
+    font-weight: 600;
+    color: #2563EB;
+}
+
+
+.parking-name p {
+    min-width: 54px;
+    margin: 0;
+    margin-right: 10px;
+    margin-top: 2px;
+    padding: 2px 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    font-size: 0.8em;
+    color: #666;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    width: 45px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+</style>
